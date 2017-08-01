@@ -46,11 +46,24 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     
+    @IBAction func reorderTable(_ sender: Any) {
+        exerciseTableView.isEditing = !exerciseTableView.isEditing
+    }
+    
+    
+    
     @IBAction func unwindToExerciseList(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? NewExerciseViewController, let exercise = sourceViewController.exercise {
-            let newIndexPath = IndexPath(row: exercises.count, section: 0)
-            exercises.append(exercise)
-            exerciseTableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+            if let selectedIndexPath = exerciseTableView.indexPathForSelectedRow {
+                exercises[selectedIndexPath.row] = exercise
+                exerciseTableView.reloadRows(at: [selectedIndexPath], with: .none)
+            } else {
+                // New exercise entered
+                let newIndexPath = IndexPath(row: exercises.count, section: 0)
+                exercises.append(exercise)
+                exerciseTableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
         
         saveExercises()
@@ -141,41 +154,69 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     */
 
-    /*
+  
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            exercises.remove(at: indexPath.row)
+            saveExercises()
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+   
 
-    /*
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        exercises.insert(exercises.remove(at: fromIndexPath.row), at: to.row)
     }
-    */
 
-    /*
+
+ 
     // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        
+        switch (segue.identifier ?? "") {
+        case "AddItem":
+            os_log("Adding a new exercise.", log: OSLog.default, type: .debug)
+        case "ShowDetail":
+            guard let exerciseDetailViewController = segue.destination as? NewExerciseViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let selectedExerciseCell = sender as? ExerciseCell else {
+                fatalError("Unexpected sender: \(sender!)")
+            }
+            
+            guard let indexPath = exerciseTableView.indexPath(for: selectedExerciseCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            
+            let selectedExercise = exercises[indexPath.row]
+            exerciseDetailViewController.exercise = selectedExercise
+        default:
+            fatalError("Unexpected Segue Identifier; \(segue.identifier!)")
+        }
+        
+        
+        
+        
     }
-    */
 
 }
+

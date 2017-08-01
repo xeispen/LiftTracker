@@ -166,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="138.38028169014083"/>
+            <point key="canvasLocation" x="5539" y="95"/>
         </scene>
         <!-- New Exercise-->
         <scene sceneID="4jW-FU-Hc0">
@@ -254,7 +254,7 @@
                     <navigationItem key="navigationItem" title=" New Exercise" id="IP7-uX-uN3">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="fIt-Kh-4ad">
                             <connections>
-                                <action selector="cancel:" destination="y0e-LF-ed7" id="FHA-A1-cXg"/>
+                                <action selector="cancel:" destination="y0e-LF-ed7" id="FQt-aD-YTR"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="kcf-Gj-9ru">
@@ -299,29 +299,45 @@
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="41.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ifV-YE-eFP">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ifV-YE-eFP">
                                                     <rect key="frame" x="8" y="8" width="272" height="25.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMk-wE-O3E">
-                                                            <rect key="frame" x="0.0" y="0.0" width="68" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="20.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="1qk-Nf-uaF"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y62-gz-Yrb">
-                                                            <rect key="frame" x="68" y="0.0" width="68" height="20.5"/>
+                                                            <rect key="frame" x="30" y="0.0" width="30" height="20.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="kFP-uA-Upd"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymG-md-Xmt">
-                                                            <rect key="frame" x="136" y="0.0" width="68" height="20.5"/>
+                                                            <rect key="frame" x="60" y="0.0" width="50" height="20.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="50" id="48w-ch-Nco"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKL-Sa-aZM">
+                                                            <rect key="frame" x="110" y="0.0" width="20" height="25.5"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="20" id="75L-cQ-Z6X"/>
+                                                            </constraints>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLS-08-nb9">
-                                                            <rect key="frame" x="204" y="0.0" width="68" height="20.5"/>
+                                                            <rect key="frame" x="130" y="0.0" width="142" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -341,6 +357,7 @@
                                             <outlet property="repLabel" destination="y62-gz-Yrb" id="dWw-sF-upP"/>
                                             <outlet property="setLabel" destination="eMk-wE-O3E" id="vf4-AL-3tO"/>
                                             <outlet property="weightLabel" destination="ymG-md-Xmt" id="hIs-6g-sJm"/>
+                                            <segue destination="y0e-LF-ed7" kind="show" identifier="ShowDetail" id="xw7-pI-iVl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -355,9 +372,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Your Exercises" id="eLx-S6-URg">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="aV7-Do-bOv">
+                            <connections>
+                                <action selector="reorderTable:" destination="HR3-lZ-DSv" id="YR6-5m-DMw"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mqb-ha-zkK">
                             <connections>
-                                <segue destination="96i-Hn-5d5" kind="presentation" id="vlr-U8-7Z2"/>
+                                <segue destination="96i-Hn-5d5" kind="presentation" identifier="AddItem" id="vlr-U8-7Z2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -367,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rpw-6m-n34" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2694.375" y="105.63380281690141"/>
+            <point key="canvasLocation" x="2631" y="96"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nRp-IE-HBa">
@@ -403,7 +425,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RLu-LQ-nGO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3566.25" y="105.63380281690141"/>
+            <point key="canvasLocation" x="3566" y="518"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="xw7-pI-iVl"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -25,12 +25,22 @@ class NewExerciseViewController: UIViewController {
     var exercise:Exercise?
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        let isPresentingInAddExerciseMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddExerciseMode {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController{
+            owningNavigationController.popViewController(animated: true)
+        } else {
+             fatalError("The NewExerciseViewController is not inside a navigation controller.")
+        }
     }
     
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+
         super.prepare(for: segue, sender: sender)
         
         
@@ -54,6 +64,20 @@ class NewExerciseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // Setup view if we are editing an existing exercise
+        if let exercise = exercise {
+            
+            //TODO: If let checks here
+            
+            exerciseTextField.text = exercise.name
+            weightTextField.text = String(exercise.weight!)
+            setTextField.text = String(exercise.set!)
+            repTextField.text = String(exercise.rep!)
+            
+        }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
